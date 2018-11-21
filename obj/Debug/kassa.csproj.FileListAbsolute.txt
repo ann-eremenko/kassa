@@ -1,1 +1,12 @@
 E:\Eremenko\kassa\bin\Debug\kassa.exe.config
+E:\Eremenko\kassa\bin\Debug\kassa.exe
+E:\Eremenko\kassa\bin\Debug\kassa.pdb
+E:\Eremenko\kassa\obj\Debug\kassa.MainForm.resources
+E:\Eremenko\kassa\obj\Debug\kassa.Properties.Resources.resources
+E:\Eremenko\kassa\obj\Debug\kassa.csproj.GenerateResource.Cache
+E:\Eremenko\kassa\obj\Debug\kassa.exe
+E:\Eremenko\kassa\obj\Debug\kassa.pdb
+E:\Eremenko\kassa\obj\Debug\kassa.AddItemsForm.resources
+E:\Eremenko\kassa\obj\Debug\kassa.DeleteItemsForm.resources
+E:\Eremenko\kassa\obj\Debug\kassa.LogForm.resources
+E:\Eremenko\kassa\obj\Debug\kassa.DeletePositionForeverForm.resources

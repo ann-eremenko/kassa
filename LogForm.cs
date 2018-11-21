@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace kassa
 {
-    public partial class Form1 : Form
+    public partial class LogForm : Form
     {
-        public Form1()
+        public LogForm()
         {
             InitializeComponent();
+        }
+
+        private void LogForm_Load(object sender, EventArgs e)
+        {
+            logGrid.Rows.Add();
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace kassa
 {
-    partial class DeleteItemsForm
+    partial class AddItemsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -202,15 +202,15 @@
             this.quantityInput.TabIndex = 2;
             this.quantityInput.ThousandsSeparator = true;
             // 
-            // DeleteItemsForm
+            // AddItemsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.formLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "DeleteItemsForm";
-            this.Text = "Продажа товара";
+            this.Name = "AddItemsForm";
+            this.Text = "Добавление товара";
             this.formLayout.ResumeLayout(false);
             this.nameLayout.ResumeLayout(false);
             this.nameLayout.PerformLayout();
