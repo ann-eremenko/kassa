@@ -7,7 +7,7 @@ using System.IO;
 
 namespace kassa
 {
-    class Stock
+    public class Stock
     {
         private Logger logger
         {
@@ -21,94 +21,157 @@ namespace kassa
             set;
         }
 
-        //Добавление поступивших товаров в базу, если запись с введенной комбинацией штрих кода и названия не существует, то создание новой
+        public Stock(string _pathToData, string _pathToLog)
+        {
+            logger = new Logger(_pathToLog);
+            pathToData = _pathToData;
+
+            if (!File.Exists(pathToData))
+                File.Create(pathToData);
+
+            addItems(123, "Тапочки", 10);
+            addItems(456, "Туфли", 50);
+            addItems(1000, "Пальто", 50);
+            deleteItems(1000, 20);
+        }
+
+        //Добавление поступивших товаров в базу, если запись с введенным штрих кодом не существует, то создание новой с переданным именем
         public virtual void addItems(int barcode, string name, int quantity)
         {
-            var lines = File.ReadAllLines(pathToData);
-
-            for (int i = 0; i < lines.Count(); i++)
+            try
             {
-                if (lines[i].Contains(name))
+                var lines = File.ReadAllLines(pathToData);
+
+                for (int i = 0; i < lines.Count(); i++)
                 {
-                    string[] subStrings = lines[i].Split(',');
+                    if (lines[i].Contains(barcode.ToString()))
+                    {
+                        string[] subStrings = lines[i].Split(',');
 
-                    int currentQuantity = Int32.Parse(subStrings[2]);
+                        int currentQuantity = Int32.Parse(subStrings[2]);
 
-                    lines[i] = "\n" + barcode.ToString() + "," + name + "," + (currentQuantity + quantity).ToString();
+                        lines[i] = barcode.ToString() + "," + (name == "" ? subStrings[1] : name) + "," + (currentQuantity + quantity).ToString();
 
-                    File.WriteAllLines(pathToData, lines);
+                        File.WriteAllLines(pathToData, lines);
 
-                    logger.add(barcode.ToString() + "," + name + "," + quantity.ToString());
+                        logger.addLine(barcode.ToString() + "," + (name == "" ? subStrings[1] : name) + "," + quantity.ToString());
 
-                    return;
+                        return;
+                    }
                 }
+
+                File.AppendAllText(pathToData, barcode.ToString() + "," + name + "," + quantity.ToString() + "\n");
+
+                logger.addLine(barcode.ToString() + "," + name + "," + quantity.ToString());
             }
-
-            File.AppendAllText(pathToData, "\n" + barcode.ToString() + "," + name + "," + quantity.ToString());
-
-            logger.add(barcode.ToString() + "," + name + "," + quantity.ToString());
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured:");
+                Console.WriteLine(e.Message);
+            }
         }
 
+        //Удаление quantity количества товаров из базы
         public virtual void deleteItems(int barcode, int quantity)
         {
-            var lines = File.ReadAllLines(pathToData);
-
-            for (int i = 0; i < lines.Count(); i++)
+            try
             {
-                if (lines[i].Contains(barcode.ToString()))
+                var lines = File.ReadAllLines(pathToData);
+
+                for (int i = 0; i < lines.Count(); i++)
                 {
-                    string[] subStrings = lines[i].Split(',');
-
-                    int currentQuantity = Int32.Parse(subStrings[2]);
-
-                    if (currentQuantity - quantity > 0)
+                    if (lines[i].Contains(barcode.ToString()))
                     {
-                        lines[i] = subStrings[0] + "," + subStrings[1] + "," + (currentQuantity - quantity).ToString();
-                        logger.add(subStrings[0] + "," + subStrings[1] + ",-" + (currentQuantity - quantity).ToString());
+                        string[] subStrings = lines[i].Split(',');
+
+                        int currentQuantity = Int32.Parse(subStrings[2]);
+
+                        if (currentQuantity - quantity > 0)
+                        {
+                            lines[i] = subStrings[0] + "," + subStrings[1] + "," + (currentQuantity - quantity).ToString();
+                            logger.addLine(subStrings[0] + "," + subStrings[1] + ",-" + quantity.ToString());
+                        }
+                        else
+                            return;
                     }
-                    else
-                        return;
                 }
+
+                File.WriteAllLines(pathToData, lines);
             }
-
-            File.WriteAllLines(pathToData, lines);
-
-
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured:");
+                Console.WriteLine(e.Message);
+            }
         }
 
+        //Удаление записи о товаре полностью
         public virtual void deleteItemForever(int barcode)
         {
-            var lines = File.ReadAllLines(pathToData);
-
-            for (int i = 0; i < lines.Count(); i++)
+            try
             {
-                if (lines[i].Contains(barcode.ToString()))
-                {
-                    lines = lines.Where((val, idx) => idx != i).ToArray();
-                }
-            }
+                var lines = File.ReadAllLines(pathToData);
 
-            File.WriteAllLines(pathToData, lines);
+                for (int i = 0; i < lines.Count(); i++)
+                {
+                    if (lines[i].Contains(barcode.ToString()))
+                    {
+                        lines = lines.Where((val, idx) => idx != i).ToArray();
+                    }
+                }
+
+                File.WriteAllLines(pathToData, lines);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured:");
+                Console.WriteLine(e.Message);
+            }
         }
 
+        //Удаление записи о товаре полностью
         public virtual void deleteItemForever(string name)
         {
-            var lines = File.ReadAllLines(pathToData);
-
-            for (int i = 0; i < lines.Count(); i++)
+            try
             {
-                if (lines[i].Contains(name))
-                {
-                    lines = lines.Where((val, idx) => idx != i).ToArray();
-                }
-            }
+                var lines = File.ReadAllLines(pathToData);
 
-            File.WriteAllLines(pathToData, lines);
+                for (int i = 0; i < lines.Count(); i++)
+                {
+                    if (lines[i].Contains(name))
+                    {
+                        lines = lines.Where((val, idx) => idx != i).ToArray();
+                    }
+                }
+
+                File.WriteAllLines(pathToData, lines);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        //Возвращает все строки из файла с данными
+        public string[] getCurrentStock()
+        {
+            return File.ReadAllLines(pathToData);
         }
 
         public virtual void setPathToData(string path)
         {
             pathToData = path;
+        }
+
+        public string[] getLog()
+        {
+            return logger.getLog();
+        }
+
+        public Logger getLoggerObj()
+        {
+            return logger;
         }
         
     }

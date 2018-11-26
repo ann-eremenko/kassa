@@ -13,9 +13,16 @@ namespace kassa
 {
     public partial class DeletePositionForeverForm : Form
     {
-        public DeletePositionForeverForm()
+        private Stock stock
+        {
+            get;
+            set;
+        }
+
+        public DeletePositionForeverForm(Stock stock)
         {
             InitializeComponent();
+            this.stock = stock;
         }
 
         private void barcodeInput_TextChanged(object sender, EventArgs e)
@@ -40,6 +47,17 @@ namespace kassa
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            if (barcodeInput.Text != "")
+                stock.deleteItemForever(Int32.Parse(barcodeInput.Text));
+
+            if (nameInput.Text != "")
+                stock.deleteItemForever(nameInput.Text);
+
             this.Close();
         }
     }

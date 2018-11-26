@@ -64,6 +64,12 @@
     <Compile Include="AddItemsForm.Designer.cs">
       <DependentUpon>AddItemsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CurrentStockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CurrentStockForm.Designer.cs">
+      <DependentUpon>CurrentStockForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddItemsForm.resx">
       <DependentUpon>AddItemsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentStockForm.resx">
+      <DependentUpon>CurrentStockForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>

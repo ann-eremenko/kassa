@@ -10,3 +10,5 @@ E:\Eremenko\kassa\obj\Debug\kassa.AddItemsForm.resources
 E:\Eremenko\kassa\obj\Debug\kassa.DeleteItemsForm.resources
 E:\Eremenko\kassa\obj\Debug\kassa.LogForm.resources
 E:\Eremenko\kassa\obj\Debug\kassa.DeletePositionForeverForm.resources
+E:\Eremenko\kassa\obj\Debug\kassa.csprojResolveAssemblyReference.cache
+E:\Eremenko\kassa\obj\Debug\kassa.CurrentStockForm.resources
