@@ -10,31 +10,44 @@ using System.Windows.Forms;
 
 namespace kassa
 {
-    public partial class MainForm : Form
+        public partial class MainForm : Form
     {
+        private Stock stock
+        {
+            get;
+            set;
+        }
+
         public MainForm()
         {
             InitializeComponent();
+
+            stock = new Stock("./data.db", "./log.log");
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            (new AddItemsForm()).ShowDialog();
+            (new AddItemsForm(stock)).ShowDialog();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            (new DeleteItemsForm()).ShowDialog();
+            (new DeleteItemsForm(stock)).ShowDialog();
         }
 
         private void logButton_Click(object sender, EventArgs e)
         {
-            (new LogForm()).ShowDialog();
+            (new LogForm(stock.getLoggerObj())).ShowDialog();
         }
 
         private void deleteForeverButton_Click(object sender, EventArgs e)
         {
-            (new DeletePositionForeverForm()).ShowDialog();
+            (new DeletePositionForeverForm(stock)).ShowDialog();
+        }
+
+        private void stockButton_Click(object sender, EventArgs e)
+        {
+            (new CurrentStockForm(stock)).ShowDialog();
         }
     }
 }

@@ -13,9 +13,15 @@ namespace kassa
 {
     public partial class DeleteItemsForm : Form
     {
-        public DeleteItemsForm()
+        private Stock stock
+        {
+            set;
+            get;
+        }
+        public DeleteItemsForm(Stock stock)
         {
             InitializeComponent();
+            this.stock = stock;
         }
 
         private void barcodeInput_TextChanged(object sender, EventArgs e)
@@ -28,18 +34,14 @@ namespace kassa
             }
         }
 
-        private void nameInput_TextChanged(object sender, EventArgs e)
-        {
-            if (nameInput.Text != string.Concat(nameInput.Text.Where(char.IsLetterOrDigit)))
-            {
-                nameInput.Text = string.Concat(nameInput.Text.Where(char.IsLetterOrDigit));
-                nameInput.SelectionStart = nameInput.Text.Length + 1;
-                SystemSounds.Beep.Play();
-            }
-        }
-
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            stock.deleteItems(Int32.Parse(barcodeInput.Text), Convert.ToInt32(quantityInput.Value));
             this.Close();
         }
     }

@@ -7,17 +7,26 @@ using System.IO;
 
 namespace kassa
 {
-    class Logger
+    public class Logger
     {
+        public Logger(string _pathToLog)
+        {
+            pathToLog = _pathToLog;
+
+            if (!File.Exists(pathToLog))
+                File.Create(pathToLog);
+        }
+
         private string pathToLog
         {
             get;
             set;
         }
 
-        public void add(string record)
+        //Добавление записи в лог
+        public void addLine(string record)
         {
-            File.AppendAllText(pathToLog, "\n" + record);
+            File.AppendAllText(pathToLog, record + "\n");
         }
 
         public virtual void setPathToLog(string path)
@@ -46,7 +55,20 @@ namespace kassa
         //Возвращает все записи лога 
         public string[] getLog()
         {
-            return File.ReadAllLines(pathToLog);
+            try
+            {
+                var res = File.ReadAllLines(pathToLog);
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The log file could not be read:");
+                Console.WriteLine(e.Message);
+
+                string[] res = { };
+                return res;
+            }
+            
         }
     }
 }
