@@ -33,6 +33,13 @@ namespace kassa
                 barcodeInput.SelectionStart = barcodeInput.Text.Length + 1;
                 SystemSounds.Beep.Play();
             }
+
+            if (barcodeInput.TextLength > 13)
+            {
+                barcodeInput.Text = barcodeInput.Text.Substring(0,13);
+                barcodeInput.SelectionStart = barcodeInput.Text.Length + 1;
+                SystemSounds.Beep.Play();
+            }
         }
 
         private void nameInput_TextChanged(object sender, EventArgs e)
