@@ -34,13 +34,13 @@
             this.barcodeInput = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.quantityInput = new System.Windows.Forms.NumericUpDown();
-            this.quantityLabel = new System.Windows.Forms.Label();
             this.quantityLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.quantityLabel = new System.Windows.Forms.Label();
+            this.quantityInput = new System.Windows.Forms.NumericUpDown();
             this.formLayout.SuspendLayout();
             this.barcodeLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantityInput)).BeginInit();
             this.quantityLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.quantityInput)).BeginInit();
             this.SuspendLayout();
             // 
             // formLayout
@@ -123,30 +123,6 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // quantityInput
-            // 
-            this.quantityInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quantityInput.Location = new System.Drawing.Point(3, 54);
-            this.quantityInput.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.quantityInput.Name = "quantityInput";
-            this.quantityInput.Size = new System.Drawing.Size(272, 20);
-            this.quantityInput.TabIndex = 2;
-            this.quantityInput.ThousandsSeparator = true;
-            // 
-            // quantityLabel
-            // 
-            this.quantityLabel.AutoSize = true;
-            this.quantityLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.quantityLabel.Location = new System.Drawing.Point(3, 38);
-            this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(272, 13);
-            this.quantityLabel.TabIndex = 1;
-            this.quantityLabel.Text = "Количество товаров:";
-            // 
             // quantityLayout
             // 
             this.quantityLayout.ColumnCount = 1;
@@ -163,6 +139,30 @@
             this.quantityLayout.Size = new System.Drawing.Size(278, 102);
             this.quantityLayout.TabIndex = 2;
             // 
+            // quantityLabel
+            // 
+            this.quantityLabel.AutoSize = true;
+            this.quantityLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.quantityLabel.Location = new System.Drawing.Point(3, 38);
+            this.quantityLabel.Name = "quantityLabel";
+            this.quantityLabel.Size = new System.Drawing.Size(272, 13);
+            this.quantityLabel.TabIndex = 1;
+            this.quantityLabel.Text = "Количество товаров:";
+            // 
+            // quantityInput
+            // 
+            this.quantityInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quantityInput.Location = new System.Drawing.Point(3, 54);
+            this.quantityInput.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.quantityInput.Name = "quantityInput";
+            this.quantityInput.Size = new System.Drawing.Size(272, 20);
+            this.quantityInput.TabIndex = 2;
+            this.quantityInput.ThousandsSeparator = true;
+            // 
             // DeleteItemsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,9 +175,9 @@
             this.formLayout.ResumeLayout(false);
             this.barcodeLayout.ResumeLayout(false);
             this.barcodeLayout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantityInput)).EndInit();
             this.quantityLayout.ResumeLayout(false);
             this.quantityLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.quantityInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
