@@ -14,7 +14,7 @@ namespace kassa
             pathToLog = _pathToLog;
 
             if (!File.Exists(pathToLog))
-                File.Create(pathToLog);
+                File.Create(pathToLog).Close();
         }
 
         private string pathToLog
@@ -26,6 +26,9 @@ namespace kassa
         //Добавление записи в лог
         public void addLine(string record)
         {
+            if (!record.All(s => (Char.IsLetterOrDigit(s) || s == ',' || s == '-')))
+                return;
+
             File.AppendAllText(pathToLog, record + "\n");
         }
 

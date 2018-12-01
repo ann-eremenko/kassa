@@ -27,7 +27,9 @@ namespace kassa
             pathToData = _pathToData;
 
             if (!File.Exists(pathToData))
-                File.Create(pathToData);
+            {
+                File.Create(pathToData).Close();
+            }
 
             addItems(123, "Тапочки", 10);
             addItems(456, "Туфли", 50);
@@ -36,25 +38,34 @@ namespace kassa
         }
 
         //Добавление поступивших товаров в базу, если запись с введенным штрих кодом не существует, то создание новой с переданным именем
-        public virtual void addItems(int barcode, string name, int quantity)
+        public virtual void addItems(long barcode, string name, int quantity)
         {
+            if (barcode > 9999999999999 || barcode < 1)
+                return;
+
+            if (!name.All(Char.IsLetterOrDigit))
+                return;
+
+            if (quantity > 10000 || quantity < 0)
+                return;
+
             try
             {
                 var lines = File.ReadAllLines(pathToData);
 
                 for (int i = 0; i < lines.Count(); i++)
                 {
-                    if (lines[i].Contains(barcode.ToString()))
+                    var splittedLine = lines[i].Split(',');
+
+                    if (splittedLine[0] == barcode.ToString())
                     {
-                        string[] subStrings = lines[i].Split(',');
+                        int currentQuantity = Int32.Parse(splittedLine[2]);
 
-                        int currentQuantity = Int32.Parse(subStrings[2]);
-
-                        lines[i] = barcode.ToString() + "," + (name == "" ? subStrings[1] : name) + "," + (currentQuantity + quantity).ToString();
+                        lines[i] = barcode.ToString() + "," + (name == "" ? splittedLine[1] : name) + "," + (currentQuantity + quantity).ToString();
 
                         File.WriteAllLines(pathToData, lines);
 
-                        logger.addLine(barcode.ToString() + "," + (name == "" ? subStrings[1] : name) + "," + quantity.ToString());
+                        logger.addLine(barcode.ToString() + "," + (name == "" ? splittedLine[1] : name) + "," + quantity.ToString());
 
                         return;
                     }
@@ -72,8 +83,15 @@ namespace kassa
         }
 
         //Удаление quantity количества товаров из базы
-        public virtual void deleteItems(int barcode, int quantity)
+        public virtual void deleteItems(long barcode, int quantity)
         {
+
+            if (barcode > 9999999999999 || barcode < 1)
+                return;
+
+            if (quantity > 10000 || quantity < 0)
+                return;
+
             try
             {
                 var lines = File.ReadAllLines(pathToData);
@@ -106,8 +124,12 @@ namespace kassa
         }
 
         //Удаление записи о товаре полностью
-        public virtual void deleteItemForever(int barcode)
+        public virtual void deleteItemForever(long barcode)
         {
+
+            if (barcode > 9999999999999 || barcode < 1)
+                return;
+
             try
             {
                 var lines = File.ReadAllLines(pathToData);
@@ -132,6 +154,10 @@ namespace kassa
         //Удаление записи о товаре полностью
         public virtual void deleteItemForever(string name)
         {
+
+            if (!name.All(Char.IsLetterOrDigit))
+                return;
+
             try
             {
                 var lines = File.ReadAllLines(pathToData);
